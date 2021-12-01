@@ -4,7 +4,6 @@ let jwtValue = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiw
 class LocalStorageMock { accessToken = null; };
 let store = new LocalStorageMock();
 
-Date.now = jest.fn(() => new Date(Date.UTC(2021, 12, 1)).valueOf());
 
 class User {
     name;
@@ -202,27 +201,17 @@ describe('OOP Tests', function () {
     it('should show to string the values', () => {
         let toStringObj = new CommentMessage('author 1', "comment", 1, 'author 2');
 
-        expect(toStringObj).toEqual([
-            expect.objectContaining({
-                author: expect.any(String),
-                comment: expect.any(String),
-                id: expect.any(Number),
-                repliedTo: expect.any(String)
-            })
-        ]);
+        const authorName = toStringObj.author.toString();
+        expect(authorName).toBe('author 1');
 
-        const authorName = toStringObj[0].authorName.toString();
-        expect(authorName).toBe('author Name');
+        const comment = toStringObj.message.toString();
+        expect(comment).toBe('comment');
 
-        const comment = toStringObj[1].comment.toString();
-        expect(comment).toBe('comment 1');
-
-        const id = toStringObj[2].id.toString();
+        const id = toStringObj.id.toString();
         expect(id).toBe('1');
 
-        const repliedToMessage = toStringObj[3].repliedTo.toString();
+        const repliedToMessage = toStringObj.repliedTo.toString();
         expect(repliedToMessage).toBe('author 2');
     });
-
 
 });
