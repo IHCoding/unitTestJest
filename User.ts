@@ -39,21 +39,22 @@ export class User {
     setName(name) { this.name = name; }
 
     canEdit(commentId) {
-        let comment = this.comments.find(
-            (value) => {
-                if (value === commentId) {
-                    return value;
-                }
-            }
-        );
+        let comment = this.comments.filter(obj => {
+            return obj.id === commentId;
+        });
 
         if (comment) { return true; }
-        return true;
+        return false;
     }
 
-    canDelete(comment) {
-        this.comments.find((value) => value = null);
-        return true;
+    canDelete(commentId) {
+
+        let comment = this.comments.filter(obj => {
+            return obj.id === null;
+        });
+
+        if (comment) { return true; }
+        return false;
     }
 }
 

@@ -106,16 +106,7 @@ describe('OOP Tests', function () {
 
     it('should show to string the values', () => {
         let toStringObj = new CommentMessage('author 1', "comment", 1, 'author 2');
-
-        const authorName = toStringObj.author.toString();
-        const comment = toStringObj.message.toString();
-        const id = toStringObj.id.toString();
-        const repliedToMessage = toStringObj.repliedTo.toString();
-
-        expect(authorName).toBe('author 1');
-        expect(comment).toBe('comment');
-        expect(id).toBe('1');
-        expect(repliedToMessage).toBe('author 2');
+        expect(toStringObj.toString()).toContain('comment author 1');
     });
 
 });
