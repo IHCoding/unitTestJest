@@ -7,15 +7,14 @@ let store = new LocalStorageMock();
 
 
 export class User {
-
     name;
     comments: CommentMessage[] = [];
     lastLoggedIn;
     store;
 
-    constructor(name, date) {
+    constructor(name) {
         this.name = name;
-        this.lastLoggedIn = date;
+        this.lastLoggedIn = Date.now();
         this.store = new LocalStorageMock();
     }
 
@@ -59,4 +58,3 @@ export class User {
 }
 
 export default User;
-
