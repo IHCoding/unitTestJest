@@ -8,16 +8,20 @@ let store = new LocalStorageMock();
 class User {
     name;
     comments = [];
+    lastLoggedIn;
 
-    constructor(name) {
+    constructor(name, date) {
         this.name = name;
+        this.lastLoggedIn = date;
     }
 
     isLoggedIn() {
         return store.accessToken != null;
     }
 
-    getLastLoggedInAt() { }
+    getLastLoggedInAt() {
+        return this.lastLoggedIn;
+    }
 
     logIn(userName, password) {
         store.accessToken = jwtValue;
@@ -108,30 +112,30 @@ describe('OOP Tests', function () {
 
     // Test for User class
     it('example tests', () => {
-        let user = new User("User 1");
+        let user = new User("User 1", Date.now);
         expect(user.getName()).toEqual('User 1');
     });
 
     it('example set user', () => {
-        let user = new User("User 1");
+        let user = new User("User 1", Date.now);
         user.setName('User 2');
         expect(user.name).toEqual('User 2');
     });
 
     it('example logIn', () => {
-        let user = new User("User 1");
+        let user = new User("User 1", Date.now);
         user.logIn('userName', 'password');
         expect(store.accessToken).toEqual(jwtValue);
     });
 
     it('example LogOut', () => {
-        let user = new User("User 1");
+        let user = new User("User 1", Date.now);
         user.logOut();
         expect(store.accessToken).toEqual(null);
     });
 
     it(' when user logs out isLogedIn should be false ', () => {
-        let user = new User("User 1");
+        let user = new User("User 1", Date.now);
         user.logIn('userName', 'password');
         user.logOut();
 
@@ -139,21 +143,21 @@ describe('OOP Tests', function () {
     });
 
     it('when user logged in, isLoggedIn will be true', () => {
-        let user = new User("User 1");
+        let user = new User("User 1", Date.now);
         user.logIn('userName', 'password');
 
         expect(user.isLoggedIn()).toEqual(true);
     });
 
     it('user can edit comment from list of comments', () => {
-        let user = new User("User 1");
+        let user = new User("User 1", Date.now);
         user.comments[1] = new CommentMessage('author', 'message', 1, 'string');
 
         expect(user.canEdit(1)).toEqual(true);
     });
 
     it('user can delete comment from list of comments', () => {
-        let user = new User("User 1");
+        let user = new User("User 1", Date.now);
         user.comments[1] = new CommentMessage('author', 'message', 1, 'string');
 
         expect(user.canDelete(1)).toEqual(true);
@@ -200,18 +204,8 @@ describe('OOP Tests', function () {
 
     it('should show to string the values', () => {
         let toStringObj = new CommentMessage('author 1', "comment", 1, 'author 2');
-
-        const authorName = toStringObj.author.toString();
-        expect(authorName).toBe('author 1');
-
-        const comment = toStringObj.message.toString();
-        expect(comment).toBe('comment');
-
-        const id = toStringObj.id.toString();
-        expect(id).toBe('1');
-
-        const repliedToMessage = toStringObj.repliedTo.toString();
-        expect(repliedToMessage).toBe('author 2');
+        this.message + ' ' + this.getAuthor + ' ' + this.getCreatedAt;
+        expect(toStringObj.toString()).toContain('comment author 1');
     });
 
 });
