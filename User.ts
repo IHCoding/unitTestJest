@@ -7,17 +7,20 @@ let store = new LocalStorageMock();
 
 
 export class User {
+
     name;
     comments: CommentMessage[] = [];
     lastLoggedIn;
+    store;
 
     constructor(name, date) {
         this.name = name;
         this.lastLoggedIn = date;
+        this.store = new LocalStorageMock();
     }
 
     isLoggedIn() {
-        return store.accessToken != null;
+        return this.store.accessToken != null;
     }
 
     getLastLoggedInAt() {
@@ -25,18 +28,17 @@ export class User {
     }
 
     logIn(userName, password) {
-        store.accessToken = jwtValue;
+        this.store.accessToken = jwtValue;
     }
 
     logOut() {
-        store.accessToken = null;
+        this.store.accessToken = null;
     }
 
     getName() { return this.name; }
 
     setName(name) { this.name = name; }
 
-    // should it be return true or false?!
     canEdit(commentId) {
         let comment = this.comments.find(
             (value) => {
@@ -50,8 +52,6 @@ export class User {
         return true;
     }
 
-
-    // should it be return true or false?!
     canDelete(comment) {
         this.comments.find((value) => value = null);
         return true;

@@ -3,10 +3,10 @@ import User from './User';
 import CommentMessage from './CommentMessage';
 
 
-let jwtValue = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+// let jwtValue = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 
-class LocalStorageMock { accessToken = jwtValue; };
-let store = new LocalStorageMock();
+// class LocalStorageMock { accessToken = jwtValue; };
+// let store = new LocalStorageMock();
 
 
 describe('OOP Tests', function () {
@@ -26,14 +26,17 @@ describe('OOP Tests', function () {
     it('logIn', () => {
         let user = new User("User 1", Date.now);
         user.logIn('userName', 'password');
-        expect(store.accessToken).toBe(jwtValue);
+        // expect(store.accessToken).toBe(jwtValue);
+        expect(user.isLoggedIn()).toBe(true);
     });
 
     it('example LogOut', () => {
         let user = new User("User 1", Date.now);
+        user.logIn('userName', 'password');
         user.logOut();
-
-        expect(store.accessToken).toEqual(jwtValue);
+        console.log(user.store);
+        expect(user.isLoggedIn()).toBe(false);
+        // expect(store.accessToken).toEqual(jwtValue);
     });
 
     it(' when user logs out isLogedIn should be false ', () => {
@@ -104,10 +107,18 @@ describe('OOP Tests', function () {
         expect(repliedTo.getRepliedTo()).toEqual('author 2');
     });
 
-    // it('should show to string the values', () => {
-    //     let toStringObj = new CommentMessage('author 1', "comment", 1, 'author 2');
-    //     this.message + ' ' + this.getAuthor + ' ' + this.getCreatedAt;
-    //     expect(toStringObj.toString()).toContain('comment author 1');
-    // });
+    it('should show to string the values', () => {
+        let toStringObj = new CommentMessage('author 1', "comment", 1, 'author 2');
+
+        const authorName = toStringObj.author.toString();
+        const comment = toStringObj.message.toString();
+        const id = toStringObj.id.toString();
+        const repliedToMessage = toStringObj.repliedTo.toString();
+
+        expect(authorName).toBe('author 1');
+        expect(comment).toBe('comment');
+        expect(id).toBe('1');
+        expect(repliedToMessage).toBe('author 2');
+    });
 
 });
